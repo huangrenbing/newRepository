@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+        //   list: ["hello", "world", "pelease", "help"],
+            list:[],
+            inputValue: '',
+        };
+      },
+      methods: {
+        handleAddItem() {
+          this.list.push(this.inputValue)
+          this.inputValue = ""
+        },
+        handleDelItem() {
+            this.list.pop()
+        }
+      },
+      template: `
+            <div>
+                <input v-model="inputValue" />
+                <button v-on:click="handleAddItem">增加</button>
+                <button v-on:click="handleDelItem">删除</button>
+                <ul>
+                    <li v-for="(item, index) of list">{{item}}  {{index}}</li>
+                </ul>
+            </div>
+            `,
+    }).mount("#root");
+  </script>
+</html>
