@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 5</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          //   list: ["hello", "world", "pelease", "help"],
+          list: [],
+          inputValue: "",
+        };
+      },
+      methods: {
+        handleAddItem() {
+          this.list.push(this.inputValue);
+          // this.inputValue = "";
+        },
+        handleDelItem() {
+          this.list.pop();
+        },
+      },
+
+
+//1  hello world 0  === 1
+//2  hello world 1 === 2
+
+      template: `
+            <div>
+                <input v-model="inputValue" />
+                <button 
+                  v-on:click="handleAddItem"
+                  v-bind:title="inputValue"
+                  >增加
+                
+                  
+                </button>
+
+
+                <button v-on:click="handleDelItem">删除</button>
+                
+                <ul>
+                    
+                    <todo-item v-for="(item, index) in list" v-bind:content="item"
+                      v-bind:index="index">
+                    </todo-item>
+                </ul>
+            </div>
+            `
+    });
+
+    app.component("todo-item", {
+      // data(){
+      //   return{
+      //     item: 'hello world'
+      //   }
+      // },
+
+      props: ['content', 'index'],
+  
+      template: `<li>{{index}}------{{content}}
+                    <slot></slot>
+                  </li>`
+    });
+
+
+    app.mount("#root");
+
+  </script>
+</html>
