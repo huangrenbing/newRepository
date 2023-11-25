@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 9</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>{{message}}</div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return{
+          message:"Hello World",
+        }
+      },
+
+      methods: {
+        handleClick(){
+          alert("click")
+        }
+      },
+      
+      template: `
+      <div @click = handleClick
+           :title = "message"
+      
+      >{{message}}</div>
+
+      <form action="http://www.baidu.com" @click.prevent="handleClick">
+        <button type="sumbit">提交</button>  
+      </form>
+      `
+    });
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

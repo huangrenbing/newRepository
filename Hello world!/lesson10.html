@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 10</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>{{message}}</div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return{
+          message:"Hello World",
+          price:2,
+          count:1
+        }
+      },
+
+      //当绑定的数据发生变化的时候，才会跟着执行
+      computed: {
+        total(){
+          return Date.now() + this.count;
+        }
+      },
+
+      methods: {
+        handleClick(){
+          alert("click");
+        },
+
+        formString(message){
+          return message.toUpperCase();
+        },
+
+        //放页面重新渲染的时候，也就是页面发生变化的时候，执行
+        getTotal(){
+          console.log(Date.now())
+          return this.price*this.count;
+          // return this.price * this.count;
+        }
+      },
+      
+      template: `
+      <div>{{formString(message)}}   {{getTotal()}}</div>
+      `
+    });
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

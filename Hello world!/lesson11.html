@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 11</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>{{message}}</div>
+    </div>
+  </body>
+  <script>
+
+    //总结，computed有缓存，methods里面生命周期用完就没了
+    //watch和computed都能监听变化，watch是异步，computed是同步
+
+    //谷歌
+    //当多个属性影响一个属性的时候，建议用computed
+    //当一个值发生变化之后，会引起一系列的操作（改变其他属性值），这种情况就适合用watch
+    const app = Vue.createApp({
+      data(){
+        return{
+          message:"Hello World",
+          price:2,
+          count:1
+        }
+      },
+
+      watch: {
+
+        //方法名称对应的变量发生变化的时候，方法就会执行
+        price(curr, prev){
+          console.log(curr, prev);
+        }
+      },
+
+      //当绑定的数据发生变化的时候，才会跟着执行
+      computed: {
+        total(){
+          return Date.now() + this.count;
+        }
+      },
+
+      methods: {
+        handleClick(){
+          alert("click");
+        },
+
+        formString(message){
+          return message.toUpperCase();
+        },
+
+        //放页面重新渲染的时候，也就是页面发生变化的时候，执行
+        getTotal(){
+          console.log(Date.now())
+          return this.price*this.count;
+          // return this.price * this.count;
+        }
+      },
+      
+      template: `
+      <div>{{formString(message)}}   {{getTotal()}}</div>
+      `
+    });
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

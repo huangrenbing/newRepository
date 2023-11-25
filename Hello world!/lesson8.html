@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 8</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>{{message}}</div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return{
+          message:"Hello World",
+          disable:true,
+          show:false
+        }
+      },
+      
+      template: `
+      <div v-bind:title=message>{{message}}</div>
+      <div v-once>{{message}}</div>
+      <div v-if="show">{{message}}</div>
+      <input  v-bind:disabled="disable" />
+      `
+    });
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>
