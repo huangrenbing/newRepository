@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 17</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    //input, textarea, checkbox, radio
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:[]
+        }
+      },
+      template: `
+      <div >
+        {{message}}
+        <input v-model="message">
+        <textarea v-model="message"/>
+        hello <input type="checkbox" v-model="message" value="hello">
+        world <input type="checkbox" v-model="message" value="world">
+        hello <input type="radio" v-model="message" value="hello">
+        world <input type="radio" v-model="message" value="world">
+      </div>
+      
+      `
+    });
+
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 19</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    //input, textarea, checkbox, radio
+    //修饰符 lazy， number， trim
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:121
+        }
+      },
+      template: `
+      <div >
+        {{message}}
+        {{typeof message}}
+        <input v-model.lazy="message"/>
+        <input type="checkbox" v-model="message" true-value="hello" false-value="world"/>
+        <input v-model.number="message" type="number"/>
+        <input v-model.trim="message"/>
+      </div>
+      
+      `
+    });
+
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

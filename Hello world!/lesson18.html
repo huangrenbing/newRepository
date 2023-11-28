@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 18</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    //input, textarea, checkbox, radio
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:[],
+          options:[
+            {
+              text: "a", value: "A"
+            },
+            {
+              text: "b", value: "B"
+            },
+            {
+              text: "c", value: "C"
+            },
+          ]
+        }
+      },
+      template: `
+      <div >
+        {{message}}
+        <select v-model="message" multiple> 
+          <option v-for="item in options" :value="item.value">{{item.text}}</option>
+        </select>
+      </div>
+      
+      `
+    });
+
+
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>
