@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 25</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    
+    const app = Vue.createApp({
+      data(){
+        return{
+          count:1
+        }
+      },
+      methods:{
+        handleAddOne(param1){
+          this.count += param1;
+        }
+      },
+
+      //v-model传到子组件参数名默认为modelValue，自定义的可以在v-model后加'：'例如
+      template: `<div>
+          <test v-model:object="count"/>
+      </div>
+      
+      `
+    });
+
+    app.component('test', {
+      props:["object"],
+      methods:{
+        handleClick(){
+          //必须为update:参数名
+          this.$emit('update:object', this.object + 3);
+        }
+      },
+      template:`
+      <div @click="handleClick">{{object}}</div>
+      `
+    })
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>

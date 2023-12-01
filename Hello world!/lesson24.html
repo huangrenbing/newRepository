@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 24</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    
+    const app = Vue.createApp({
+      data(){
+        return{
+          count:1
+        }
+      },
+      methods:{
+        handleAddOne(param1){
+          this.count += param1;
+        }
+      },
+      template: `<div>
+          <test :count="count" @add="handleAddOne"/>
+      </div>
+      
+      `
+    });
+
+    app.component('test', {
+      props:["count"],
+      emits:{
+        add: (count) => {
+          if(count < 0){
+            return false;
+          }
+        }
+      },
+      methods:{
+        handleClick(){
+          this.$emit('add', this.count + 3);
+        }
+      },
+      template:`
+      <div @click="handleClick">{{count}}</div>
+      `
+    })
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>
