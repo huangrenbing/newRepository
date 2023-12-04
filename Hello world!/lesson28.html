@@ -17,25 +17,21 @@
     //slot 中使用的数据， 作用域的问题
     //父模板中调用的数据属性，使用的都是父模板里面的数据
     //子模板中调用的数据属性，使用的都是子模板里的数据
+    //当父模板调用组件时，没有用到solt标签时，就会展示默认值，有的话则不会展示
+    //具名插槽
     const app = Vue.createApp({
-      data(){
-        return{
-          text:"提交"
-        }
-      },
-      
       template: `
-      <test >
-        <div>text</div>
-      </test>
-
-      <test>
-        <button>text</button>
-      </test>
+      <layout >
+        <template v-slot:header>
+          <div>header</div>
+        </template>
+        
+        <div v-slot="footer">footer</div>
+      </layout>
       `
     });
 
-    app.component('test', {
+    app.component('layout', {
       methods:{
         handleAddOne(){
           alert(this.text)
@@ -43,7 +39,11 @@
       },
 
       template:`
-      <input @click="handleAddOne"><slot></slot></input>
+      <div>
+        <div>contetn</div>
+        <slot name="header"></slot>
+        <slot name="footer"></slot>
+      </div>
       `
     })
     

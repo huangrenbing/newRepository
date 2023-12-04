@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 30</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    //作用域插槽
+    const app = Vue.createApp({
+      data () {
+        return {
+          currentItem: 'input-item'  
+        }
+      },
+      methods:{
+        handleCheck(){
+          if(this.currentItem === 'input-item'){
+            this.currentItem = 'common-item'
+          }else{
+            this.currentItem = 'input-item'
+          }
+
+        }
+      },
+      template: `
+      <keep-alive>
+        <component :is="currentItem" />
+      </keep-alive>
+      <button @click="handleCheck">切换</button>
+      <async-common-item />
+      `
+    });
+
+    app.component('input-item', {
+      template:`
+      <input />
+      `
+    });
+
+    app.component('common-item', {
+      template:`
+      <div>hello world</div>
+      `
+    });
+
+    app.component('async-common-item', Vue.defineAsyncComponent(() =>{
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            template: 
+              `
+                <div>than is an asnc component</div>
+              `
+          })
+        }, 4000)
+      })
+    }));
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>
