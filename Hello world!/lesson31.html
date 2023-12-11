@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 31</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+    //v-once 让某个元素标签只渲染一次
+    //ref 实际上是获取Dom节点 || 组件引用的一个语法
+    //provide / inject
+    const app = Vue.createApp({
+      data () {
+        return {
+          count: 1
+        }
+      },
+      mounted(){
+        this.$refs.count.innerHTML = "hello"
+        this.$refs.common.sayHello();
+      },
+      provide(){
+        return{
+          count: this.count
+        }
+      },
+      template: `
+        <div ref="count">
+          {{count}}
+        </div>
+
+        <child />
+        <button @click="count += 1">add</button>
+
+        <common-item  ref="common"/>
+      `
+    });
+
+    app.component('common-item', {
+      methods: {
+        sayHello(){
+          alert("hello");
+        }
+      },
+      template:`
+      <div>hello world</div>
+      `
+    });
+
+    app.component('child', {
+      template:`
+      <child-child :count="count"/>
+      `
+    });
+
+    app.component('child-child', {
+      inject:["count"],
+      template:`
+      <div>{{count}}</div>
+      `
+    });
+    
+    const vm = app.mount("#root");
+
+  </script>
+</html>
