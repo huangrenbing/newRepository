@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>lesson 35</title>
+
+    <style>
+      /* @keyframes shake {
+        0%{
+          transform: translateX(-100px);
+        }
+        50%{  
+          transform: translateX(-50);
+        }
+        100%{
+          transform: translateX(50px);
+        }
+      }
+      .v-enter-active{
+        color: rgb(14, 76, 51);
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+      
+      .v-leave-active{
+        color: blue;
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+       */
+    </style>
+
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+  
+    //单元素的出场/入场动画
+    const app = Vue.createApp({
+      data () {
+        return {
+          show: false
+        }
+      },
+      methods: {
+        handleClick(){
+            this.show = !this.show;
+        },
+        handleBeforeEnter(el){
+          el.style.color="red"
+        },
+        handleEnterActive(el, done){
+          const animate =  setInterval(() => {
+            const color = el.style.color;
+            if(color === "red"){
+              el.style.color = "green";
+            }else{
+              el.style.color = "red";
+            }
+          }, 1000);
+          setTimeout(() =>{
+            clearInterval(animate)
+            done();
+          }, 3000)
+        },
+        handleAfterEnter(el){
+          alert(123);
+        }
+      },
+
+      // enter-active-class="animate__animated animate__bounce"
+      // leave-active-class="animate__animated animate__bounce"
+      // type = "transition"
+      // :duration="{enter:1000, leave:3000}"
+      
+      template: `
+        <div>
+          <transition 
+            :css="false"
+            @before-enter="handleBeforeEnter"
+            @enter="handleEnterActive"
+            @after-enter="handleAfterEnter"
+          >
+            <div v-show="show">hello world</div>
+          </transition>
+          <button @click="handleClick">切换</button>
+        </div>
+      `
+      // <div :class="animate">hello world</div>
+    });
+
+    const vm = app.mount("#root");
+
+  </script>
+</html>
