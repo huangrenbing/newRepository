@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>lesson 36</title>
+
+    <style>
+      .v-leave-to{
+        opacity: 0;
+      }
+      .v-enter-from{
+        opacity: 0;
+      }
+      .v-leave-active ,
+      .v-enter-active{
+        transition: opacity 1s ease-in;
+      } 
+      .v-leave-from ,
+      .v-enter-to{
+        opacity: 1;
+      }
+    </style>
+
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>
+  <script>
+  
+  //多个单元素标签之间的切换
+  //多个单组件之间的切换
+    const ComponentsA = {
+      template: '<div>hello world</div>'
+    }
+
+    const ComponentsB = {
+      template: '<div>bye world</div>'
+    }
+    
+    const app = Vue.createApp({
+      data () {
+        return {
+          show: false
+        }
+      },
+      methods: {
+        handleClick(){
+            this.show = !this.show;
+        },
+      },
+      components: {
+        'component-a':ComponentsA,
+        'component-b':ComponentsB
+      },
+
+      template: `
+        <div>
+          <transition mode="in-out" appear>
+            <component-a v-if="show" />
+            <component-b v-else="show" />
+          </transition>
+          <button @click="handleClick">切换</button>
+        </div>
+      `
+      // <div :class="animate">hello world</div>
+    });
+
+    const vm = app.mount("#root");
+
+  </script>
+</html>
