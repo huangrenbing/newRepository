@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>lesson 40</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+      <div>test</div>
+    </div>
+  </body>  
+  <script> 
+  
+  //mixin 混入
+  //组件data， methods 优先级高于mixin data，methods优先级
+  //生命周期函数，先执行 mixin 里面的， 再执行组件里面的
+  //自定义的属性，组件中的属性优先级高于 mixin 属性的优先级
+    const myMixin = {
+      // number: 2,
+    }
+    const app = Vue.createApp({
+      number: 1,
+    
+      mixins: [myMixin],
+      
+      template: `
+        <div>
+          <div>{{this.$options.number}}</div>
+        </div>
+      `
+      // <div :class="animate">hello world</div>
+    });
+
+    app.config.optionMergeStrategies.number = (mixinVal, appVal) => {
+      return mixinVal || appVal;
+    }
+
+    // app.mixin({
+    //   data(){
+    //     return{
+    //       number: 2,
+    //       count: 1
+    //     }
+    //   },
+    //   created () {
+    //     console.log("mixin created")
+    //   },
+    //   methods: {
+    //     handleClick(){
+    //         this.count = 10;
+    //     },
+    //   },
+    // })
+
+    const vm = app.mount("#root");
+
+    // app.component("child", {
+    //   mixins: [myMixin],
+    //   template: "<div>{{count}}<div>"
+    // })
+
+  </script>
+</html>
