@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>lesson 42</title>
+    <style>
+      .header{position: absolute;}
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+    </div>
+  </body>  
+  <script> 
+  
+    const app = Vue.createApp({
+      data () {
+        return {
+          distance: 20
+        }
+      },
+      template: `
+        <div>
+          <input v-pos:right="distance" class="header" />
+        </div>
+      `
+    });
+
+    app.directive('pos', (el, binding) =>{
+      el.style[binding.arg] = binding.value + "px";
+    })
+
+    // app.directive('pos', {
+      
+    //   mounted(el, binding){
+    //     el.style.top = binding.value + "px";
+    //   },
+    //   updated (el, binding) {
+    //     el.style.top = binding.value + "px";
+    //   }
+    // })
+    
+
+    const vm = app.mount("#root");
+
+  </script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>lesson 41</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="root">
+    </div>
+  </body>  
+  <script> 
+
+    // const directives = {
+    //   focus: {
+    //     mounted(el) {
+    //       el.focus();
+    //     }
+    //   }
+    // }
+  
+    const app = Vue.createApp({
+      // mounted () {
+      //   this.$refs.input.focus();
+      // },
+      // directives,
+      template: `
+        <div>
+          <input v-focus />
+        </div>
+      `
+    });
+
+    app.directive('focus', {
+      beforeMount () {
+        console.log('beforeMount');
+      },
+      mounted(el){
+        console.log("mounted");
+        el.focus();
+      }
+    })
+    
+
+    const vm = app.mount("#root");
+
+  </script>
+</html>
